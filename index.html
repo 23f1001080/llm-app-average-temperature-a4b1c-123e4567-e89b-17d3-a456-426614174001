@@ -8,21 +8,47 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Weather Report</h1>
-        <div class="card">
-            <div class="card-header">
-                Average Temperature
+        <h1 class="mb-4">Temperature Report</h1>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Average Temperature
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Overall Average:</h5>
+                        <p class="card-text fs-3" id="avg-temp">Calculating...</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">Overall Average:</h5>
-                <p class="card-text fs-3" id="avg-temp">Calculating...</p>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Highest Temperature
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Max Temperature:</h5>
+                        <p class="card-text fs-3" id="high-temp">Calculating...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Lowest Temperature
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Min Temperature:</h5>
+                        <p class="card-text fs-3" id="low-temp">Calculating...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.title = 'Temperature Report 2025-10-22';
+            document.title = 'Temperature Report Advanced 2025-10-22';
 
             fetch('weather.csv')
                 .then(response => {
@@ -46,6 +72,8 @@
 
                     let sum = 0;
                     let count = 0;
+                    let minTemp = Infinity;
+                    let maxTemp = -Infinity;
 
                     for (let i = 1; i < rows.length; i++) {
                         const columns = rows[i].split(',');
@@ -54,16 +82,28 @@
                             if (!isNaN(temp)) {
                                 sum += temp;
                                 count++;
+                                minTemp = Math.min(minTemp, temp);
+                                maxTemp = Math.max(maxTemp, temp);
                             }
                         }
                     }
 
                     let average = count > 0 ? sum / count : 0;
                     document.getElementById('avg-temp').textContent = average.toFixed(2);
+
+                    if (count > 0) {
+                        document.getElementById('high-temp').textContent = maxTemp.toFixed(0);
+                        document.getElementById('low-temp').textContent = minTemp.toFixed(0);
+                    } else {
+                        document.getElementById('high-temp').textContent = 'N/A';
+                        document.getElementById('low-temp').textContent = 'N/A';
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching or processing CSV:', error);
                     document.getElementById('avg-temp').textContent = `Error: ${error.message}`;
+                    document.getElementById('high-temp').textContent = 'Error';
+                    document.getElementById('low-temp').textContent = 'Error';
                 });
         });
     </script>
