@@ -31,7 +31,7 @@ To run this application locally, a simple HTTP server is required because modern
 1.  Once the local server is running, open your web browser and navigate to the server's address (e.g., `http://localhost:8000`).
 2.  The browser tab's title will immediately update to 'Temperature Report Advanced 2025-10-22'.
 3.  The application will automatically fetch and parse the `weather.csv` file.
-4.  It will then calculate the average, highest, and lowest temperatures from the 'temperature' column and display these statistics prominently within distinct Bootstrap cards on the page. The average will be rounded to two decimal places, while the highest and lowest will be displayed as whole numbers.
+4.  It will then calculate the average, highest, and lowest temperatures from the 'temperature' column and display these statistics prominently within distinct Bootstrap cards on the page. The average will be rounded to two decimal places, while the highest and lowest will be displayed as whole numbers (e.g., 34 and 28).
 
 ## 4. Code Explanation
 
